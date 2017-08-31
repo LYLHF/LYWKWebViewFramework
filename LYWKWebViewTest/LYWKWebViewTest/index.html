@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title></title>
+    <script type="text/javascript">
+    		var bridgeIos;
+    		
+   		document.addEventListener('', function(){
+   			//console.log("所有plus api都应该在此事件发生后调用，否则会出现plus is undefined。"
+   			
+   		});
+   		
+   		function login(){
+   			alert("login")
+<!--            window.webkit.messageHandlers.test.postMessage('abcdefg');-->
+<!--   			bridgeIos.login()-->
+   		}
+   		
+   		function share(){
+   			alert("share")
+<!--            window.webkit.messageHandlers.diciationaryMethod.postMessage({'key' : 'abcdefg'});-->
+<!--   			var shareStr-->
+<!--   			bridgeIos.share()-->
+   		}
+   		
+   		function init(){
+   			var initStr = window.webkit.messageHandlers.nativeInit.postMessage('');
+   			alert(initStr)
+   		}
+   		
+    </script>
+</head>
+<body onload="init()">
+	<button onclick="login()">登陆</button>
+	<button onclick="share()">分享</button>
+	<input type="search" />
+</body>
+</html>
