@@ -16,8 +16,9 @@
 		B122C6411EE91E9B00CA6409 /* LYWKWebViewTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B122C6401EE91E9B00CA6409 /* LYWKWebViewTestTests.m */; };
 		B122C64C1EE91E9B00CA6409 /* LYWKWebViewTestUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = B122C64B1EE91E9B00CA6409 /* LYWKWebViewTestUITests.m */; };
 		B122C65A1EE93D9900CA6409 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = B122C6591EE93D9900CA6409 /* index.html */; };
-		B1E9DC701EEA3C3900A78D4A /* LQWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = B1E9DC6F1EEA3C3900A78D4A /* LQWebView.m */; };
-		B1E9DC761EEA757600A78D4A /* LQIosH5Manager.m in Sources */ = {isa = PBXBuildFile; fileRef = B1E9DC751EEA757600A78D4A /* LQIosH5Manager.m */; };
+		B158E9671F592F6E004DE012 /* LYIOSWebManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B158E9621F592F6E004DE012 /* LYIOSWebManager.m */; };
+		B158E9681F592F6E004DE012 /* LYWKWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = B158E9641F592F6E004DE012 /* LYWKWebView.m */; };
+		B158E9691F592F6E004DE012 /* LYWKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B158E9661F592F6E004DE012 /* LYWKWebViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,10 +56,12 @@
 		B122C64B1EE91E9B00CA6409 /* LYWKWebViewTestUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LYWKWebViewTestUITests.m; sourceTree = "<group>"; };
 		B122C64D1EE91E9B00CA6409 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B122C6591EE93D9900CA6409 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
-		B1E9DC6E1EEA3C3900A78D4A /* LQWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LQWebView.h; sourceTree = "<group>"; };
-		B1E9DC6F1EEA3C3900A78D4A /* LQWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LQWebView.m; sourceTree = "<group>"; };
-		B1E9DC741EEA757600A78D4A /* LQIosH5Manager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LQIosH5Manager.h; sourceTree = "<group>"; };
-		B1E9DC751EEA757600A78D4A /* LQIosH5Manager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LQIosH5Manager.m; sourceTree = "<group>"; };
+		B158E9611F592F6E004DE012 /* LYIOSWebManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYIOSWebManager.h; sourceTree = "<group>"; };
+		B158E9621F592F6E004DE012 /* LYIOSWebManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYIOSWebManager.m; sourceTree = "<group>"; };
+		B158E9631F592F6E004DE012 /* LYWKWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYWKWebView.h; sourceTree = "<group>"; };
+		B158E9641F592F6E004DE012 /* LYWKWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYWKWebView.m; sourceTree = "<group>"; };
+		B158E9651F592F6E004DE012 /* LYWKWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYWKWebViewController.h; sourceTree = "<group>"; };
+		B158E9661F592F6E004DE012 /* LYWKWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYWKWebViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,15 +112,12 @@
 		B122C6251EE91E9B00CA6409 /* LYWKWebViewTest */ = {
 			isa = PBXGroup;
 			children = (
+				B158E9601F592F6E004DE012 /* LYWKWebViewFramework */,
 				B122C6591EE93D9900CA6409 /* index.html */,
 				B122C6291EE91E9B00CA6409 /* AppDelegate.h */,
 				B122C62A1EE91E9B00CA6409 /* AppDelegate.m */,
 				B122C62C1EE91E9B00CA6409 /* ViewController.h */,
 				B122C62D1EE91E9B00CA6409 /* ViewController.m */,
-				B1E9DC6E1EEA3C3900A78D4A /* LQWebView.h */,
-				B1E9DC6F1EEA3C3900A78D4A /* LQWebView.m */,
-				B1E9DC741EEA757600A78D4A /* LQIosH5Manager.h */,
-				B1E9DC751EEA757600A78D4A /* LQIosH5Manager.m */,
 				B122C62F1EE91E9B00CA6409 /* Main.storyboard */,
 				B122C6321EE91E9B00CA6409 /* Assets.xcassets */,
 				B122C6341EE91E9B00CA6409 /* LaunchScreen.storyboard */,
@@ -151,6 +151,19 @@
 				B122C64D1EE91E9B00CA6409 /* Info.plist */,
 			);
 			path = LYWKWebViewTestUITests;
+			sourceTree = "<group>";
+		};
+		B158E9601F592F6E004DE012 /* LYWKWebViewFramework */ = {
+			isa = PBXGroup;
+			children = (
+				B158E9611F592F6E004DE012 /* LYIOSWebManager.h */,
+				B158E9621F592F6E004DE012 /* LYIOSWebManager.m */,
+				B158E9631F592F6E004DE012 /* LYWKWebView.h */,
+				B158E9641F592F6E004DE012 /* LYWKWebView.m */,
+				B158E9651F592F6E004DE012 /* LYWKWebViewController.h */,
+				B158E9661F592F6E004DE012 /* LYWKWebViewController.m */,
+			);
+			path = LYWKWebViewFramework;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -287,11 +300,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B1E9DC701EEA3C3900A78D4A /* LQWebView.m in Sources */,
 				B122C62E1EE91E9B00CA6409 /* ViewController.m in Sources */,
+				B158E9681F592F6E004DE012 /* LYWKWebView.m in Sources */,
+				B158E9671F592F6E004DE012 /* LYIOSWebManager.m in Sources */,
 				B122C62B1EE91E9B00CA6409 /* AppDelegate.m in Sources */,
+				B158E9691F592F6E004DE012 /* LYWKWebViewController.m in Sources */,
 				B122C6281EE91E9B00CA6409 /* main.m in Sources */,
-				B1E9DC761EEA757600A78D4A /* LQIosH5Manager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,34 +1,30 @@
 //
-//  LQWebView.m
+//  LYWKWebView.m
 //  LYWKWebViewTest
 //
 //  Created by 李勇 on 17/6/9.
 //  Copyright © 2017年 李勇. All rights reserved.
 //
 
-#import "LQWebView.h"
-#import <WebKit/WebKit.h>
-#import "LQIosH5Manager.h"
+#import "LYWKWebView.h"
 
-@interface LQWebView()<WKNavigationDelegate, WKUIDelegate>
+@interface LYWKWebView()<WKNavigationDelegate, WKUIDelegate>
 
 @property (nonatomic, strong) WKUserContentController *userContentController;
 
-@property (nonatomic, strong) LQIosH5Manager *IosH5Manager;
-
-@property (nonatomic, strong) WKWebView *webView;
-
+//html文件下载进度条
 @property (nonatomic, strong) UIProgressView *progressView;
+//是否应该显示进度条
+@property (assign, nonatomic) BOOL shouldShowProgress;
 
 @end
 
-@implementation LQWebView
+@implementation LYWKWebView
 
 #pragma mark - overwrite
 
 - (void)dealloc
 {
-    [self.userContentController removeScriptMessageHandlerForName:@"test"];
     [self.webView removeObserver:self forKeyPath:@"estimatedProgress"];
 }
 
@@ -68,9 +64,6 @@
     self.webView.navigationDelegate = self;
     self.webView.UIDelegate = self;
     [self addSubview:self.webView];
-    //建立桥联
-    self.IosH5Manager = [LQIosH5Manager managerForWebView:self.webView];
-    [self.userContentController addScriptMessageHandler:self.IosH5Manager name:@"test"];
     
     //进度条
     self.progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(0, 0, self.webView.frame.size.width, self.webView.frame.size.height)];
@@ -98,6 +91,11 @@
                         change:(NSDictionary<NSKeyValueChangeKey,id> *)change
                        context:(void *)context
 {
+    if (!self.shouldShowProgress)
+    {
+        return;
+    }
+    
     if ([keyPath isEqualToString:@"estimatedProgress"])
     {
         self.progressView.progress = self.webView.estimatedProgress;
@@ -107,11 +105,13 @@
 
 /**
  加载URL
-
+ 
  @param urlString URL地址
+ @param shouldShow 是否应该显示html文件的下载进度
  */
-- (void)loadURLString:(nonnull NSString *)urlString
+- (void)loadURLString:(nonnull NSString *)urlString shouldShowProgress:(BOOL)shouldShow
 {
+    self.shouldShowProgress = shouldShow;
     if ([urlString length] > 0)
     {
         if (!([urlString containsString:@"http://"] || [urlString containsString:@"https://"]))
@@ -143,13 +143,14 @@
 }
 
 /**
- 注册供H5调用的方法
- 
+ 添加一个script方法
+
+ @param scriptMessageHandler native-web桥接对象
  @param name 方法名
  */
-- (void)addScriptMethodName:(nonnull NSString *)name
+- (void)customAddScriptMessageHandler:(id <WKScriptMessageHandler>)scriptMessageHandler name:(NSString *)name
 {
-    [self.userContentController addScriptMessageHandler:self.IosH5Manager name:name];
+    [self.userContentController addScriptMessageHandler:scriptMessageHandler name:name];
 }
 
 #pragma mark - WKNavigationDelegate

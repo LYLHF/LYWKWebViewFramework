@@ -13,20 +13,20 @@
    		});
    		
    		function login(){
-   			alert("login")
-<!--            window.webkit.messageHandlers.test.postMessage('abcdefg');-->
+<!--   			alert("login")-->
+            window.webkit.messageHandlers.login.postMessage('abcdefg');
 <!--   			bridgeIos.login()-->
    		}
    		
    		function share(){
    			alert("share")
-<!--            window.webkit.messageHandlers.diciationaryMethod.postMessage({'key' : 'abcdefg'});-->
+<!--            window.webkit.messageHandlers.share.postMessage({'key' : 'abcdefg'});-->
 <!--   			var shareStr-->
 <!--   			bridgeIos.share()-->
    		}
    		
    		function init(){
-   			var initStr = window.webkit.messageHandlers.nativeInit.postMessage('');
+   			var initStr = window.webkit.messageHandlers.init.postMessage('');
    			alert(initStr)
    		}
    		
