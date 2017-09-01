@@ -109,7 +109,7 @@
  @param urlString URL地址
  @param shouldShow 是否应该显示html文件的下载进度
  */
-- (void)loadURLString:(nonnull NSString *)urlString shouldShowProgress:(BOOL)shouldShow
+- (void)loadURLString:(NSString * _Nonnull )urlString shouldShowProgress:(BOOL)shouldShow
 {
     self.shouldShowProgress = shouldShow;
     if ([urlString length] > 0)
@@ -131,11 +131,14 @@
 
 /**
  加载本地文件
-
+ 
  @param source 文件名
  @param extension 文件扩展
+ @param shouldShow 是否应该显示html文件的下载进度
  */
-- (void)loadLocalSource:(nullable NSString *)source extension:(nullable NSString *)extension
+- (void)loadLocalSource:(nullable NSString *)source
+              extension:(nullable NSString *)extension
+     shouldShowProgress:(BOOL)shouldShow
 {
     NSURL *localURL = [[NSBundle mainBundle] URLForResource:source withExtension:extension];
     NSURLRequest *localURLRequest = [NSURLRequest requestWithURL:localURL];
@@ -148,34 +151,48 @@
  @param scriptMessageHandler native-web桥接对象
  @param name 方法名
  */
-- (void)customAddScriptMessageHandler:(id <WKScriptMessageHandler>)scriptMessageHandler name:(NSString *)name
+- (void)customAddScriptMessageHandler:(id <WKScriptMessageHandler> _Nonnull)scriptMessageHandler name:(NSString * _Nonnull)name
 {
     [self.userContentController addScriptMessageHandler:scriptMessageHandler name:name];
 }
 
 #pragma mark - WKNavigationDelegate
 
-- (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation
+- (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(null_unspecified WKNavigation *)navigation
 {
     // 页面开始加载时调用
-    NSLog(@"didStartProvisionalNavigation:%@", navigation);
+    if ([self.delegate respondsToSelector:@selector(webView:didStartProvisionalNavigation:)])
+    {
+        [self.delegate webView:self didStartProvisionalNavigation:navigation];
+    }
 }
 
-- (void)webView:(WKWebView *)webView didCommitNavigation:(WKNavigation *)navigation
+- (void)webView:(WKWebView *)webView didCommitNavigation:(null_unspecified WKNavigation *)navigation
 {
     // 当内容开始返回时调用
-    NSLog(@"didCommitNavigation:%@", navigation);
+    if ([self.delegate respondsToSelector:@selector(webView:didCommitNavigation:)])
+    {
+        [self.delegate webView:self didCommitNavigation:navigation];
+    }
 }
 
-- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
+- (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation
 {
     // 页面加载完成之后调用
+    if ([self.delegate respondsToSelector:@selector(webView:didFinishNavigation:)])
+    {
+        [self.delegate webView:self didFinishNavigation:navigation];
+    }
     NSLog(@"didFinishNavigation:%@", navigation);
 }
 
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error
 {
     // 页面加载失败时调用
+    if ([self.delegate respondsToSelector:@selector(webView:didFailProvisionalNavigation:withError:)])
+    {
+        [self.delegate webView:self didFailProvisionalNavigation:navigation withError:error];
+    }
     NSLog(@"didFinishNavigation:%@", navigation);
 }
 
@@ -188,7 +205,18 @@
         completionHandler:(void (^)(NSString * __nullable result))completionHandler
 {
     // 输入框
-    completionHandler(@"http");
+    if ([self.delegate respondsToSelector:@selector(webView:
+                                                    runJavaScriptTextInputPanelWithPrompt:
+                                                    defaultText:
+                                                    initiatedByFrame:
+                                                    completionHandler:)])
+    {
+        [self.delegate webView:self
+                       runJavaScriptTextInputPanelWithPrompt:prompt
+                       defaultText:defaultText
+                       initiatedByFrame:frame
+                       completionHandler:completionHandler];
+    }
 }
 
 - (void)webView:(WKWebView *)webView
@@ -197,7 +225,16 @@
         completionHandler:(void (^)(BOOL result))completionHandler
 {
     // 确认框
-    completionHandler(YES);
+    if ([self.delegate respondsToSelector:@selector(webView:
+                                                    runJavaScriptConfirmPanelWithMessage:
+                                                    initiatedByFrame:
+                                                    completionHandler:)])
+    {
+        [self.delegate webView:self
+                       runJavaScriptConfirmPanelWithMessage:message
+                       initiatedByFrame:frame
+                       completionHandler:completionHandler];
+    }
 }
 
 - (void)webView:(WKWebView *)webView
@@ -206,8 +243,16 @@
         completionHandler:(void (^)(void))completionHandler
 {
     // 警告框
-    NSLog(@"%@",message);
-    completionHandler();
+    if ([self.delegate respondsToSelector:@selector(webView:
+                                                    runJavaScriptAlertPanelWithMessage:
+                                                    initiatedByFrame:
+                                                    completionHandler:)])
+    {
+        [self.delegate webView:self
+                       runJavaScriptAlertPanelWithMessage:message
+                       initiatedByFrame:frame
+                       completionHandler:completionHandler];
+    }
 }
 
 

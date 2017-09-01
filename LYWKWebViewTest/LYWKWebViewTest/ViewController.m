@@ -45,7 +45,9 @@
 - (void)buildView
 {
     LYWKWebView *webView = [[LYWKWebView alloc] initWithFrame:self.view.bounds];
-    [webView loadLocalSource:@"index" extension:@"html"];
+    [webView loadLocalSource:@"index"
+                   extension:@"html"
+          shouldShowProgress:YES];
 //    [webView loadURLString:@"http://yiguanjiaclub.org/commerce/listBanel.html?sid=863DE9933E5E9EF05876FF0917653A52" shouldShowProgress:YES];
     LYIOSWebManager *iOSWebManager = [LYIOSWebManager managerFor:webView];
     [iOSWebManager registerFuncName:@"login" funcBlock:^(id param){
