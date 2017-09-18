@@ -48,6 +48,7 @@
 - (void)buildView
 {
     LYWKWebView *webView = [[LYWKWebView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 150)];
+    webView.webViewMode = WKWebViewReleaseMode;
     [webView loadLocalSource:@"index"
                    extension:@"html"
           shouldShowProgress:YES];
@@ -80,6 +81,7 @@
 - (IBAction)pushClick:(id)sender
 {
     LYWKWebViewController *webViewController = [[LYWKWebViewController alloc] init];
+    webViewController.webViewControllerMode = WKWebViewReleaseMode;
     [webViewController loadURLString:@"http://yiguanjiaclub.org/commerce/listBanel.html?sid=863DE9933E5E9EF05876FF0917653A52"
                   shouldShowProgress:YES];
 //    [webViewController loadLocalSource:@"index"
