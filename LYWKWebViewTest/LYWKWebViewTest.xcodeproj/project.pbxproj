@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B11E938F1F6BB7AF00B78766 /* WKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B11E938E1F6BB7AF00B78766 /* WKWebViewController.m */; };
 		B122C6281EE91E9B00CA6409 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B122C6271EE91E9B00CA6409 /* main.m */; };
 		B122C62B1EE91E9B00CA6409 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B122C62A1EE91E9B00CA6409 /* AppDelegate.m */; };
 		B122C62E1EE91E9B00CA6409 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B122C62D1EE91E9B00CA6409 /* ViewController.m */; };
@@ -39,6 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B11E938D1F6BB7AF00B78766 /* WKWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WKWebViewController.h; sourceTree = "<group>"; };
+		B11E938E1F6BB7AF00B78766 /* WKWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WKWebViewController.m; sourceTree = "<group>"; };
 		B122C6231EE91E9B00CA6409 /* LYWKWebViewTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LYWKWebViewTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B122C6271EE91E9B00CA6409 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B122C6291EE91E9B00CA6409 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -118,6 +121,8 @@
 				B122C62A1EE91E9B00CA6409 /* AppDelegate.m */,
 				B122C62C1EE91E9B00CA6409 /* ViewController.h */,
 				B122C62D1EE91E9B00CA6409 /* ViewController.m */,
+				B11E938D1F6BB7AF00B78766 /* WKWebViewController.h */,
+				B11E938E1F6BB7AF00B78766 /* WKWebViewController.m */,
 				B122C62F1EE91E9B00CA6409 /* Main.storyboard */,
 				B122C6321EE91E9B00CA6409 /* Assets.xcassets */,
 				B122C6341EE91E9B00CA6409 /* LaunchScreen.storyboard */,
@@ -303,6 +308,7 @@
 				B122C62E1EE91E9B00CA6409 /* ViewController.m in Sources */,
 				B158E9681F592F6E004DE012 /* LYWKWebView.m in Sources */,
 				B158E9671F592F6E004DE012 /* LYIOSWebManager.m in Sources */,
+				B11E938F1F6BB7AF00B78766 /* WKWebViewController.m in Sources */,
 				B122C62B1EE91E9B00CA6409 /* AppDelegate.m in Sources */,
 				B158E9691F592F6E004DE012 /* LYWKWebViewController.m in Sources */,
 				B122C6281EE91E9B00CA6409 /* main.m in Sources */,

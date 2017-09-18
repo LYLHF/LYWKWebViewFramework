@@ -8,9 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import <WebKit/WebKit.h>
+#import "LYWKWebViewController.h"
 #import "LYWKWebView.h"
 
-typedef void(^FunctionBlock)(id param);
+typedef void(^FunctionBlock)(id _Nullable param);
 
 @interface LYIOSWebManager : NSObject<WKScriptMessageHandler>
 
@@ -20,7 +21,15 @@ typedef void(^FunctionBlock)(id param);
  @param webView webView
  @return native-web桥接对象
  */
-+ (LYIOSWebManager *)managerFor:(LYWKWebView *)webView;
++ (nonnull LYIOSWebManager *)managerForWebView:(nonnull LYWKWebView *)webView;
+
+/**
+ 为webViewController创建native-web桥接对象
+ 
+ @param webViewController webViewController
+ @return native-web桥接对象
+ */
++ (nonnull LYIOSWebManager *)managerForWebViewController:(nonnull LYWKWebViewController *)webViewController;
 
 /**
  注册函数
@@ -28,6 +37,6 @@ typedef void(^FunctionBlock)(id param);
  @param funcName 函数名
  @param funcBlock 函数内容block
  */
-- (void)registerFuncName:(NSString *)funcName funcBlock:(FunctionBlock)funcBlock;
+- (void)registerFuncName:(NSString * _Nonnull)funcName funcBlock:(FunctionBlock _Nonnull)funcBlock;
 
 @end

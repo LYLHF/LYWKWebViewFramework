@@ -11,6 +11,10 @@
 @interface LYWKWebView()<WKNavigationDelegate, WKUIDelegate>
 
 @property (nonatomic, strong) WKUserContentController *userContentController;
+//webView
+@property (nonatomic, strong, nonnull, readwrite) WKWebView *webView;
+//注册的方法的列表
+@property (nonatomic, strong) NSMutableArray<NSString *> *scriptMessageNameArray;
 
 //html文件下载进度条
 @property (nonatomic, strong) UIProgressView *progressView;
@@ -25,7 +29,16 @@
 
 - (void)dealloc
 {
+    for (int index = 0; index < [self.scriptMessageNameArray count]; index ++)
+    {
+        [self.userContentController removeScriptMessageHandlerForName:self.scriptMessageNameArray[index]];
+    }
     [self.webView removeObserver:self forKeyPath:@"estimatedProgress"];
+    
+    if (self.webViewMode == WKWebViewDebugMode)
+    {
+        NSLog(@"LYWKWebView dealloc");
+    }
 }
 
 /**
@@ -38,6 +51,7 @@
 {
     if (self = [super initWithFrame:frame])
     {
+        self.scriptMessageNameArray = [NSMutableArray arrayWithCapacity:0];
         [self buildView];
     }
     
@@ -118,15 +132,16 @@
         {
             urlString = [NSString stringWithFormat:@"http://%@",urlString];
         }
+        if (self.webViewMode == WKWebViewDebugMode)
+        {
+            NSLog(@"URLString:%@", urlString);
+        }
         NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
         [self.webView loadRequest:urlRequest];
-    }
-#ifdef DEBUG
-    else
+    }else if(self.webViewMode == WKWebViewDebugMode)
     {
-//        [MBProgressHUD showFailHUDwithMsg:@"url为空,加载失败."];
+        NSLog(@"url为空,加载失败");        
     }
-#endif
 }
 
 /**
@@ -141,6 +156,10 @@
      shouldShowProgress:(BOOL)shouldShow
 {
     NSURL *localURL = [[NSBundle mainBundle] URLForResource:source withExtension:extension];
+    if (self.webViewMode == WKWebViewDebugMode)
+    {
+        NSLog(@"localSourcePath:%@", localURL);
+    }
     NSURLRequest *localURLRequest = [NSURLRequest requestWithURL:localURL];
     [self.webView loadRequest:localURLRequest];
 }
@@ -153,7 +172,11 @@
  */
 - (void)customAddScriptMessageHandler:(id <WKScriptMessageHandler> _Nonnull)scriptMessageHandler name:(NSString * _Nonnull)name
 {
-    [self.userContentController addScriptMessageHandler:scriptMessageHandler name:name];
+    if (([name length] > 0) && (scriptMessageHandler != nil))
+    {
+        [self.scriptMessageNameArray addObject:name];
+        [self.userContentController addScriptMessageHandler:scriptMessageHandler name:name];
+    }
 }
 
 #pragma mark - WKNavigationDelegate
@@ -183,7 +206,6 @@
     {
         [self.delegate webView:self didFinishNavigation:navigation];
     }
-    NSLog(@"didFinishNavigation:%@", navigation);
 }
 
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error

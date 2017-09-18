@@ -9,14 +9,21 @@
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
 
+typedef NS_ENUM(NSInteger, WKWebViewMode) {
+    WKWebViewDebugMode,     //联调模式(会打印日志)
+    WKWebViewReleaseMode    //生产模式
+};
+
 @protocol LYWKWebViewDelegate;
 
 @interface LYWKWebView : UIView
 
 //webView
-@property (nonatomic, strong, nonnull) WKWebView *webView;
-
-@property (nonatomic, assign, nullable) id<LYWKWebViewDelegate> delegate;
+@property (nonatomic, strong, nonnull, readonly) WKWebView *webView;
+//代理
+@property (nonatomic, weak, nullable) id<LYWKWebViewDelegate> delegate;
+//模式
+@property (nonatomic, assign) WKWebViewMode webViewMode;
 
 /**
  加载URL
@@ -49,25 +56,25 @@
 
 @protocol LYWKWebViewDelegate <NSObject>
 
-- (void)webView:(LYWKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation;
-- (void)webView:(LYWKWebView *)webView didCommitNavigation:(WKNavigation *)navigation;
-- (void)webView:(LYWKWebView *)webView didFinishNavigation:(WKNavigation *)navigation;
-- (void)webView:(LYWKWebView *)webView didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error;
+- (void)webView:(nonnull LYWKWebView *)webView didStartProvisionalNavigation:(nullable WKNavigation *)navigation;
+- (void)webView:(nonnull LYWKWebView *)webView didCommitNavigation:(nullable WKNavigation *)navigation;
+- (void)webView:(nonnull LYWKWebView *)webView didFinishNavigation:(nullable WKNavigation *)navigation;
+- (void)webView:(nonnull LYWKWebView *)webView didFailProvisionalNavigation:(nullable WKNavigation *)navigation withError:(nullable NSError *)error;
 
-- (void)webView:(LYWKWebView *)webView
-        runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt
+- (void)webView:(nonnull LYWKWebView *)webView
+        runJavaScriptTextInputPanelWithPrompt:(nullable NSString *)prompt
         defaultText:(nullable NSString *)defaultText
-        initiatedByFrame:(WKFrameInfo *)frame
-        completionHandler:(void (^)(NSString * __nullable result))completionHandler;
+        initiatedByFrame:(nullable WKFrameInfo *)frame
+        completionHandler:(void (^_Nullable)(NSString * __nullable result))completionHandler;
 
-- (void)webView:(LYWKWebView *)webView
-        runJavaScriptConfirmPanelWithMessage:(NSString *)message
-        initiatedByFrame:(WKFrameInfo *)frame
-        completionHandler:(void (^)(BOOL result))completionHandler;
+- (void)webView:(nonnull LYWKWebView *)webView
+        runJavaScriptConfirmPanelWithMessage:(nullable NSString *)message
+        initiatedByFrame:(nullable WKFrameInfo *)frame
+        completionHandler:(void (^_Nullable)(BOOL result))completionHandler;
 
-- (void)webView:(LYWKWebView *)webView
-        runJavaScriptAlertPanelWithMessage:(NSString *)message
-        initiatedByFrame:(WKFrameInfo *)frame
-        completionHandler:(void (^)(void))completionHandler;
+- (void)webView:(nonnull LYWKWebView *)webView
+        runJavaScriptAlertPanelWithMessage:(nullable NSString *)message
+        initiatedByFrame:(nullable WKFrameInfo *)frame
+        completionHandler:(void (^_Nullable)(void))completionHandler;
 
 @end

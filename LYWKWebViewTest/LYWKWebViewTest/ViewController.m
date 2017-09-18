@@ -7,6 +7,8 @@
 //
 
 #import "ViewController.h"
+#import "LYWKWebViewController.h"
+#import "WKWebViewController.h"
 #import "LYWKWebView.h"
 #import "LYIOSWebManager.h"
 
@@ -35,6 +37,7 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+    self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
 #pragma mark - func
@@ -44,18 +47,51 @@
  */
 - (void)buildView
 {
-    LYWKWebView *webView = [[LYWKWebView alloc] initWithFrame:self.view.bounds];
+    LYWKWebView *webView = [[LYWKWebView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, 150)];
     [webView loadLocalSource:@"index"
                    extension:@"html"
           shouldShowProgress:YES];
 //    [webView loadURLString:@"http://yiguanjiaclub.org/commerce/listBanel.html?sid=863DE9933E5E9EF05876FF0917653A52" shouldShowProgress:YES];
-    LYIOSWebManager *iOSWebManager = [LYIOSWebManager managerFor:webView];
+    LYIOSWebManager *iOSWebManager = [LYIOSWebManager managerForWebView:webView];
     [iOSWebManager registerFuncName:@"login" funcBlock:^(id param){
         NSLog(@"login");
     }];
     [self.view addSubview:webView];
     
     return;
+}
+
+/**
+ 使用系统WKWebView
+
+ @param sender nil
+ */
+- (IBAction)nativePushClick:(id)sender
+{
+    WKWebViewController *vc = [[WKWebViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+/**
+ 使用对于WKWebView的封装类LYWKWebViewController
+
+ @param sender nil
+ */
+- (IBAction)pushClick:(id)sender
+{
+    LYWKWebViewController *webViewController = [[LYWKWebViewController alloc] init];
+    [webViewController loadURLString:@"http://yiguanjiaclub.org/commerce/listBanel.html?sid=863DE9933E5E9EF05876FF0917653A52"
+                  shouldShowProgress:YES];
+//    [webViewController loadLocalSource:@"index"
+//                             extension:@"html"
+//                    shouldShowProgress:YES];
+    LYIOSWebManager *iOSWebManager = [LYIOSWebManager managerForWebViewController:webViewController];
+    NSLog(@"CFGetRetainCount((__bridge CFTypeRef)(iOSWebManager)):%ld", CFGetRetainCount((__bridge CFTypeRef)(iOSWebManager)));
+    [iOSWebManager registerFuncName:@"login" funcBlock:^(id param){
+        NSLog(@"login");
+    }];
+    NSLog(@"CFGetRetainCount((__bridge CFTypeRef)(iOSWebManager)):%ld", CFGetRetainCount((__bridge CFTypeRef)(iOSWebManager)));
+    [self.navigationController pushViewController:webViewController animated:YES];
 }
 
 @end

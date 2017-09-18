@@ -7,10 +7,13 @@
 //
 
 #import "LYIOSWebManager.h"
+#import <objc/runtime.h>
+
+static NSString * const bridgedWebViewAssociatedKey = @"bridgedWebViewAssociatedKey";
 
 @interface LYIOSWebManager()
 
-@property (strong, nonatomic) LYWKWebView *bridgedWebView;
+@property (weak, nonatomic) LYWKWebView *bridgedWebView;
 
 @property (strong, nonatomic) NSMutableDictionary <NSString *, FunctionBlock> *scriptMessageDic;
 
@@ -19,6 +22,14 @@
 @implementation LYIOSWebManager
 
 #pragma mark - overwrite
+
+- (void)dealloc
+{
+    if (self.bridgedWebView.webViewMode == WKWebViewDebugMode)
+    {
+        NSLog(@"LYIOSWebManager dealloc");
+    }
+}
 
 - (id)init
 {
@@ -30,6 +41,23 @@
     return self;
 }
 
+#pragma mark - property
+
+//- (void)setBridgedWebView:(LYWKWebView *)tempBridgedWebView
+//{
+//    objc_setAssociatedObject(self, &bridgedWebViewAssociatedKey, tempBridgedWebView, OBJC_ASSOCIATION_ASSIGN);
+//}
+//
+//- (LYWKWebView *)bridgedWebView
+//{
+//    if ([objc_getAssociatedObject(self, &bridgedWebViewAssociatedKey) isKindOfClass:[LYWKWebView class]])
+//    {
+//        return objc_getAssociatedObject(self, &bridgedWebViewAssociatedKey);
+//    }
+//    
+//    return nil;
+//}
+
 #pragma mark - func
 
 /**
@@ -38,11 +66,25 @@
  @param webView webView
  @return native-web桥接对象
  */
-+ (LYIOSWebManager *)managerFor:(LYWKWebView *)webView
++ (nonnull LYIOSWebManager *)managerForWebView:(nonnull LYWKWebView *)webView
 {
     LYIOSWebManager *iOSWebManager = [[LYIOSWebManager alloc] init];
     iOSWebManager.bridgedWebView = webView;
 
+    return iOSWebManager;
+}
+
+/**
+ 为webViewController创建native-web桥接对象
+ 
+ @param webViewController webViewController
+ @return native-web桥接对象
+ */
++ (LYIOSWebManager *)managerForWebViewController:(LYWKWebViewController *)webViewController
+{
+    LYIOSWebManager *iOSWebManager = [[LYIOSWebManager alloc] init];
+    iOSWebManager.bridgedWebView = webViewController.webView;
+    
     return iOSWebManager;
 }
 
@@ -60,7 +102,6 @@
         [self.scriptMessageDic setValue:funcBlock forKey:funcName];
     }
     
-#warning 存在内存泄露！！！
     [self.bridgedWebView customAddScriptMessageHandler:self name:funcName];
 }
 
