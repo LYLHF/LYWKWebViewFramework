@@ -8,6 +8,51 @@
 
 #import "LYWKWebView.h"
 
+@implementation NSString (Category)
+
+/**
+ 字符串UTF-8编码
+ 
+ @return 编码后的字符串
+ */
+- (nullable NSString *)customEncodingString
+{
+    if (self.length > 0)
+    {
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0)
+        {
+            NSCharacterSet *characterSet = [NSCharacterSet characterSetWithCharactersInString:self];
+            return [self stringByAddingPercentEncodingWithAllowedCharacters:characterSet];
+        }else{
+            return [self stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        }
+    }
+    
+    return nil;
+}
+
+@end
+
+@implementation NSURL (Category)
+
+/**
+ 网址字符串转为可加载的url(主要针对有汉字的网址字符串)
+ 
+ @param URLString url字符串
+ @return url
+ */
++ (nullable NSURL *)customURLWithString:(nonnull NSString *)URLString
+{
+    if ([URLString length] > 0)
+    {
+        return [NSURL URLWithString:[URLString customEncodingString]];
+    }
+    
+    return nil;
+}
+
+@end
+
 @interface LYWKWebView()<WKNavigationDelegate, WKUIDelegate>
 
 @property (nonatomic, strong) WKUserContentController *userContentController;
@@ -136,7 +181,7 @@
         {
             NSLog(@"URLString:%@", urlString);
         }
-        NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+        NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL customURLWithString:urlString]];
         [self.webView loadRequest:urlRequest];
     }else if(self.webViewMode == WKWebViewDebugMode)
     {

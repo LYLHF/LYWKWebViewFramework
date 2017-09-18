@@ -9,6 +9,29 @@
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
 
+@interface NSString (Category)
+
+/**
+ 字符串UTF-8编码
+ 
+ @return 编码后的字符串
+ */
+- (nullable NSString *)customEncodingString;
+
+@end
+
+@interface NSURL (Category)
+
+/**
+ 网址字符串转为可加载的url(主要针对有汉字的网址字符串)
+ 
+ @param URLString url字符串
+ @return url
+ */
++ (nullable NSURL *)customURLWithString:(nonnull NSString *)URLString;
+
+@end
+
 typedef NS_ENUM(NSInteger, WKWebViewMode) {
     WKWebViewDebugMode,     //联调模式(会打印日志)
     WKWebViewReleaseMode    //生产模式
