@@ -88,6 +88,8 @@ typedef NS_ENUM(NSInteger, WKWebViewMode) {
 
 @protocol LYWKWebViewDelegate <NSObject>
 
+@optional
+
 //页面开始加载时调用
 - (void)webView:(nonnull LYWKWebView *)webView didStartProvisionalNavigation:(nullable WKNavigation *)navigation;
 //当内容开始返回时调用

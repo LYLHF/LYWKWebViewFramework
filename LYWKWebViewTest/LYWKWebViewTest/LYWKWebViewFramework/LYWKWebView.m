@@ -128,7 +128,7 @@
     self.progressView = [[UIProgressView alloc] initWithFrame:CGRectMake(0, 0, self.webView.frame.size.width, self.webView.frame.size.height)];
     self.progressView.progress = 0;
     self.progressView.hidden = YES;
-    [self.webView addSubview:self.progressView];
+    [self.webView.scrollView addSubview:self.progressView];
     
     //KVO监听加载进度
     [self.webView addObserver:self
@@ -200,6 +200,7 @@
               extension:(nullable NSString *)extension
      shouldShowProgress:(BOOL)shouldShow
 {
+    self.shouldShowProgress = shouldShow;
     NSURL *localURL = [[NSBundle mainBundle] URLForResource:source withExtension:extension];
     if (self.webViewMode == WKWebViewDebugMode)
     {
@@ -218,6 +219,7 @@
 - (void)loadJavaScriptString:(NSString *_Nonnull)javaScriptString
           shouldShowProgress:(BOOL)shouldShow
 {
+    self.shouldShowProgress = shouldShow;
     if (self.webViewMode == WKWebViewDebugMode)
     {
         NSLog(@"loadJavaScriptString:%@", javaScriptString);
@@ -344,7 +346,7 @@
                        initiatedByFrame:frame
                        completionHandler:completionHandler];
     }
+    completionHandler();
 }
-
 
 @end

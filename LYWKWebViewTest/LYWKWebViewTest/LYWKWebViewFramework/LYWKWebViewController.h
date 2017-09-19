@@ -51,6 +51,8 @@
 
 @protocol LYWKWebViewControllerDelegate <NSObject>
 
+@optional
+
 - (void)webViewController:(nonnull LYWKWebViewController *)webViewController
                   webView:(nonnull LYWKWebView *)webView
         didStartProvisionalNavigation:(nullable WKNavigation *)navigation;
