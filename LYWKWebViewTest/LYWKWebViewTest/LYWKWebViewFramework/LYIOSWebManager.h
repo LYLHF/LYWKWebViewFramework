@@ -11,7 +11,7 @@
 #import "LYWKWebViewController.h"
 #import "LYWKWebView.h"
 
-typedef void(^FunctionBlock)(id _Nullable param);
+typedef void(^FunctionBlock)(LYWKWebView * _Nullable bridgedWebView, id _Nullable param);
 
 @interface LYIOSWebManager : NSObject<WKScriptMessageHandler>
 

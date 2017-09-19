@@ -68,6 +68,15 @@ typedef NS_ENUM(NSInteger, WKWebViewMode) {
      shouldShowProgress:(BOOL)shouldShow;
 
 /**
+ 加载javascript字符串
+
+ @param javaScriptString javascript字符串
+ @param shouldShow 是否应该显示html文件的下载进度
+ */
+- (void)loadJavaScriptString:(NSString *_Nonnull)javaScriptString
+          shouldShowProgress:(BOOL)shouldShow;
+
+/**
  添加一个script方法
  
  @param scriptMessageHandler native-web桥接对象
@@ -79,9 +88,13 @@ typedef NS_ENUM(NSInteger, WKWebViewMode) {
 
 @protocol LYWKWebViewDelegate <NSObject>
 
+//页面开始加载时调用
 - (void)webView:(nonnull LYWKWebView *)webView didStartProvisionalNavigation:(nullable WKNavigation *)navigation;
+//当内容开始返回时调用
 - (void)webView:(nonnull LYWKWebView *)webView didCommitNavigation:(nullable WKNavigation *)navigation;
+//页面加载完成之后调用
 - (void)webView:(nonnull LYWKWebView *)webView didFinishNavigation:(nullable WKNavigation *)navigation;
+//页面加载失败时调用
 - (void)webView:(nonnull LYWKWebView *)webView didFailProvisionalNavigation:(nullable WKNavigation *)navigation withError:(nullable NSError *)error;
 
 - (void)webView:(nonnull LYWKWebView *)webView

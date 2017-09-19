@@ -54,7 +54,7 @@
           shouldShowProgress:YES];
 //    [webView loadURLString:@"http://yiguanjiaclub.org/commerce/listBanel.html?sid=863DE9933E5E9EF05876FF0917653A52" shouldShowProgress:YES];
     LYIOSWebManager *iOSWebManager = [LYIOSWebManager managerForWebView:webView];
-    [iOSWebManager registerFuncName:@"login" funcBlock:^(id param){
+    [iOSWebManager registerFuncName:@"login" funcBlock:^(LYWKWebView * _Nullable bridgedWebView, id param){
         NSLog(@"login");
     }];
     [self.view addSubview:webView];
@@ -89,7 +89,7 @@
 //                    shouldShowProgress:YES];
     LYIOSWebManager *iOSWebManager = [LYIOSWebManager managerForWebViewController:webViewController];
     NSLog(@"CFGetRetainCount((__bridge CFTypeRef)(iOSWebManager)):%ld", CFGetRetainCount((__bridge CFTypeRef)(iOSWebManager)));
-    [iOSWebManager registerFuncName:@"login" funcBlock:^(id param){
+    [iOSWebManager registerFuncName:@"login" funcBlock:^(LYWKWebView * _Nullable bridgedWebView, id param){
         NSLog(@"login");
     }];
     NSLog(@"CFGetRetainCount((__bridge CFTypeRef)(iOSWebManager)):%ld", CFGetRetainCount((__bridge CFTypeRef)(iOSWebManager)));

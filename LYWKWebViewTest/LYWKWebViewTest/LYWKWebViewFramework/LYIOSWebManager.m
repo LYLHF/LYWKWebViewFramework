@@ -120,7 +120,7 @@ static NSString * const bridgedWebViewAssociatedKey = @"bridgedWebViewAssociated
         FunctionBlock functionBlock = self.scriptMessageDic[funcName];
         if (functionBlock)
         {
-            functionBlock(message.body);
+            functionBlock(self.bridgedWebView, message.body);
         }
     }
 }

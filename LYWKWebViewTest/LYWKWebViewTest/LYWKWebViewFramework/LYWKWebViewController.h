@@ -38,6 +38,15 @@
               extension:(nullable NSString *)extension
      shouldShowProgress:(BOOL)shouldShow;
 
+/**
+ 加载javascript字符串
+ 
+ @param javaScriptString javascript字符串
+ @param shouldShow 是否应该显示html文件的下载进度
+ */
+- (void)loadJavaScriptString:(NSString *_Nonnull)javaScriptString
+          shouldShowProgress:(BOOL)shouldShow;
+
 @end
 
 @protocol LYWKWebViewControllerDelegate <NSObject>

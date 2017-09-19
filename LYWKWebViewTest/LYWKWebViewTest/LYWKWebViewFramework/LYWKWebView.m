@@ -210,6 +210,30 @@
 }
 
 /**
+ 加载javascript字符串
+ 
+ @param javaScriptString javascript字符串
+ @param shouldShow 是否应该显示html文件的下载进度
+ */
+- (void)loadJavaScriptString:(NSString *_Nonnull)javaScriptString
+          shouldShowProgress:(BOOL)shouldShow
+{
+    if (self.webViewMode == WKWebViewDebugMode)
+    {
+        NSLog(@"loadJavaScriptString:%@", javaScriptString);
+    }
+    __weak typeof(self) weakSelf = self;
+    [self.webView evaluateJavaScript:javaScriptString
+                   completionHandler:^(id _Nullable obj, NSError * _Nullable error) {
+                       if ((weakSelf.webViewMode == WKWebViewDebugMode) &&
+                           (error != nil))
+                       {
+                           NSLog(@"javaScript load fail:%@", error);
+                       }
+                   }];
+}
+
+/**
  添加一个script方法
 
  @param scriptMessageHandler native-web桥接对象
@@ -228,7 +252,7 @@
 
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(null_unspecified WKNavigation *)navigation
 {
-    // 页面开始加载时调用
+    //页面开始加载时调用
     if ([self.delegate respondsToSelector:@selector(webView:didStartProvisionalNavigation:)])
     {
         [self.delegate webView:self didStartProvisionalNavigation:navigation];
@@ -237,7 +261,7 @@
 
 - (void)webView:(WKWebView *)webView didCommitNavigation:(null_unspecified WKNavigation *)navigation
 {
-    // 当内容开始返回时调用
+    //当内容开始返回时调用
     if ([self.delegate respondsToSelector:@selector(webView:didCommitNavigation:)])
     {
         [self.delegate webView:self didCommitNavigation:navigation];
@@ -246,7 +270,7 @@
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(null_unspecified WKNavigation *)navigation
 {
-    // 页面加载完成之后调用
+    //页面加载完成之后调用
     if ([self.delegate respondsToSelector:@selector(webView:didFinishNavigation:)])
     {
         [self.delegate webView:self didFinishNavigation:navigation];
@@ -255,7 +279,7 @@
 
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error
 {
-    // 页面加载失败时调用
+    //页面加载失败时调用
     if ([self.delegate respondsToSelector:@selector(webView:didFailProvisionalNavigation:withError:)])
     {
         [self.delegate webView:self didFailProvisionalNavigation:navigation withError:error];
@@ -271,7 +295,7 @@
         initiatedByFrame:(WKFrameInfo *)frame
         completionHandler:(void (^)(NSString * __nullable result))completionHandler
 {
-    // 输入框
+    //输入框
     if ([self.delegate respondsToSelector:@selector(webView:
                                                     runJavaScriptTextInputPanelWithPrompt:
                                                     defaultText:
@@ -291,7 +315,7 @@
         initiatedByFrame:(WKFrameInfo *)frame
         completionHandler:(void (^)(BOOL result))completionHandler
 {
-    // 确认框
+    //确认框
     if ([self.delegate respondsToSelector:@selector(webView:
                                                     runJavaScriptConfirmPanelWithMessage:
                                                     initiatedByFrame:
@@ -309,7 +333,7 @@
         initiatedByFrame:(WKFrameInfo *)frame
         completionHandler:(void (^)(void))completionHandler
 {
-    // 警告框
+    //提示框
     if ([self.delegate respondsToSelector:@selector(webView:
                                                     runJavaScriptAlertPanelWithMessage:
                                                     initiatedByFrame:
