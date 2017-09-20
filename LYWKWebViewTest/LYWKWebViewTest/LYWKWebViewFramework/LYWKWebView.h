@@ -112,7 +112,6 @@ typedef NS_ENUM(NSInteger, WKWebViewMode) {
 
 - (void)webView:(nonnull LYWKWebView *)webView
         runJavaScriptAlertPanelWithMessage:(nullable NSString *)message
-        initiatedByFrame:(nullable WKFrameInfo *)frame
-        completionHandler:(void (^_Nullable)(void))completionHandler;
+        initiatedByFrame:(nullable WKFrameInfo *)frame;
 
 @end

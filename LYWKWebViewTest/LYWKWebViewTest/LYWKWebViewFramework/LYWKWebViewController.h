@@ -83,7 +83,6 @@
 - (void)webViewController:(nonnull LYWKWebViewController *)webViewController
                   webView:(nonnull LYWKWebView *)webView
         runJavaScriptAlertPanelWithMessage:(nullable NSString *)message
-         initiatedByFrame:(nullable WKFrameInfo *)frame
-        completionHandler:(void (^_Nullable)(void))completionHandler;
+         initiatedByFrame:(nullable WKFrameInfo *)frame;
 
 @end

@@ -106,8 +106,7 @@
 
 - (void)webView:(nonnull LYWKWebView *)webView
         runJavaScriptAlertPanelWithMessage:(nullable NSString *)message
-        initiatedByFrame:(nullable WKFrameInfo *)frame
-        completionHandler:(void (^_Nullable)(void))completionHandler
+        initiatedByFrame:(nullable WKFrameInfo *)frame        
 {
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
                                                         message:message
@@ -123,7 +122,6 @@
                   webView:(nonnull LYWKWebView *)webView
 runJavaScriptAlertPanelWithMessage:(nullable NSString *)message
          initiatedByFrame:(nullable WKFrameInfo *)frame
-        completionHandler:(void (^_Nullable)(void))completionHandler
 {
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示"
                                                         message:message

@@ -147,7 +147,7 @@
  */
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object
-                        change:(NSDictionary<NSKeyValueChangeKey,id> *)change
+                        change:(NSDictionary<NSString *,id> *)change
                        context:(void *)context
 {
     if (!self.shouldShowProgress)
@@ -338,15 +338,16 @@
     //提示框
     if ([self.delegate respondsToSelector:@selector(webView:
                                                     runJavaScriptAlertPanelWithMessage:
-                                                    initiatedByFrame:
-                                                    completionHandler:)])
+                                                    initiatedByFrame:)])
     {
         [self.delegate webView:self
                        runJavaScriptAlertPanelWithMessage:message
-                       initiatedByFrame:frame
-                       completionHandler:completionHandler];
+                       initiatedByFrame:frame];
     }
-    completionHandler();
+    if (self.webView != nil)
+    {
+        completionHandler();
+    }
 }
 
 @end

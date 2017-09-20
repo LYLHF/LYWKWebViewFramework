@@ -169,16 +169,14 @@
 
 - (void)webView:(nonnull LYWKWebView *)webView
         runJavaScriptAlertPanelWithMessage:(nullable NSString *)message
-        initiatedByFrame:(nullable WKFrameInfo *)frame
-        completionHandler:(void (^_Nullable)(void))completionHandler
-{
-    if ([self.delegate respondsToSelector:@selector(webViewController:webView:runJavaScriptAlertPanelWithMessage:initiatedByFrame:completionHandler:)])
+        initiatedByFrame:(nullable WKFrameInfo *)frame        
+{    
+    if ([self.delegate respondsToSelector:@selector(webViewController:webView:runJavaScriptAlertPanelWithMessage:initiatedByFrame:)])
     {
         [self.delegate webViewController:self
                                  webView:webView
       runJavaScriptAlertPanelWithMessage:message
-                        initiatedByFrame:frame
-                       completionHandler:completionHandler];
+                        initiatedByFrame:frame];
     }
 }
 
